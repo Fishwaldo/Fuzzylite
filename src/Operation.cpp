@@ -110,6 +110,27 @@ namespace fl {
     scalar Operation::negate(scalar a) {
         return -a;
     }
+    scalar Operation::gt(scalar a, scalar b) {
+        return isGt(a, b);
+    }
+    scalar Operation::ge(scalar a, scalar b) {
+        return isGE(a, b);
+    }
+    scalar Operation::eq(scalar a, scalar b) {
+        return isEq(a, b);
+    }
+    scalar Operation::le(scalar a, scalar b) {
+        return isLE(a, b);
+    }
+    scalar Operation::lt(scalar a, scalar b) {
+        return isLt(a, b);
+    }
+    scalar Operation::logicalNot(scalar a) {
+        return isEq(a, 1.0) ? 0.0 : 1.0; //Implementation in Operation.cpp
+    }
+
+
+
 
     bool Operation::increment(std::vector<int>& x, std::vector<int>& min, std::vector<int>& max) {
         return increment(x, (int) x.size() - 1, min, max);

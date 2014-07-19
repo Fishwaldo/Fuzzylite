@@ -74,6 +74,14 @@ namespace fl {
         static scalar logicalAnd(scalar a, scalar b);
         static scalar logicalOr(scalar a, scalar b);
         static scalar negate(scalar a);
+        static scalar gt(scalar a, scalar b); //greater than
+        static scalar ge(scalar a, scalar b); //greater than or equal to
+        static scalar eq(scalar a, scalar b); //equal to
+        static scalar le(scalar a, scalar b); //less than or equal to
+        static scalar lt(scalar a, scalar b); //less than
+        static scalar logicalNot(scalar a);
+
+
 
         static bool increment(std::vector<int>& x, std::vector<int>& min, std::vector<int>& max);
         static bool increment(std::vector<int>& x, int position, std::vector<int>& min, std::vector<int>& max);

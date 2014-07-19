@@ -227,6 +227,8 @@ namespace fl {
         // (!) Logical and (~) Bitwise NOT
         //        this->_unaryOperators["!"] = new Operator("!", std::logical_not<scalar>, p, 1);
         // ~ negates a number
+        this->operators["!"] = new Operator("!", fl::Op::logicalNot, p, 1);
+
         this->operators["~"] = new Operator("~", fl::Op::negate, p, 1);
         --p; //Power
         this->operators["^"] = new Operator("^", std::pow, p, 1);
@@ -280,6 +282,11 @@ namespace fl {
         this->functions["pow"] = new BuiltInFunction("pow", &(std::pow));
         this->functions["atan2"] = new BuiltInFunction("atan2", &(std::atan2));
         this->functions["fmod"] = new BuiltInFunction("fmod", &(std::fmod));
+        this->functions["gt"] = new BuiltInFunction("gt", &(fl::Op::gt));
+        this->functions["lt"] = new BuiltInFunction("lt", &(fl::Op::lt));
+        this->functions["ge"] = new BuiltInFunction("ge", &(fl::Op::ge));
+        this->functions["le"] = new BuiltInFunction("le", &(fl::Op::le));
+        this->functions["eq"] = new BuiltInFunction("eq", &(fl::Op::eq));
     }
 
     std::string Function::space(const std::string& formula) const {
