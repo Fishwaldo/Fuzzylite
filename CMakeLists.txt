@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
+
 #in windows, cmake . -G "NMake Makefiles"
 #in unix, cmake . -G "Unix Makefiles"
 project(fuzzylite CXX)
@@ -47,8 +48,8 @@ endif(FL_DEBUG)
 
 add_definitions(-DFL_BUILD_PATH="${CMAKE_SOURCE_DIR}") #used to determine FL__FILE__
 
-set(EXECUTABLE_OUTPUT_PATH bin)
-set(LIBRARY_OUTPUT_PATH bin)
+#set(EXECUTABLE_OUTPUT_PATH bin)
+#set(LIBRARY_OUTPUT_PATH bin)
 
 set(FL_LIBS)
 
@@ -90,6 +91,7 @@ set(CMAKE_DEBUG_POSTFIX -dbg)
 
 add_library(fl-shared SHARED ${fl-headers} ${fl-sources})
 set_target_properties(fl-shared PROPERTIES OUTPUT_NAME fuzzylite)
+set_target_properties(fl-shared PROPERTIES VERSION ${FL_VERSION} SOVERSION ${FL_VERSION})
 target_link_libraries(fl-shared ${FL_LIBS})
 
 add_library(fl-static STATIC ${fl-headers} ${fl-sources})
@@ -102,11 +104,12 @@ set_target_properties(fl-bin PROPERTIES OUTPUT_NAME fuzzylite IMPORT_PREFIX _) #
 set_target_properties(fl-bin PROPERTIES DEBUG_POSTFIX -dbg)
 target_link_libraries(fl-bin fl-shared ${FL_LIBS})
 
+include(GNUInstallDirs)
 
 install(TARGETS fl-bin fl-shared fl-static
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION bin
-		ARCHIVE DESTINATION bin
+		RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 		)
 
 install(DIRECTORY fl/ DESTINATION include/fl)
