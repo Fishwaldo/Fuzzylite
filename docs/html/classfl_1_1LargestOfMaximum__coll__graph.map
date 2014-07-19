@@ -1,0 +1,4 @@
+<map id="fl::LargestOfMaximum" name="fl::LargestOfMaximum">
+<area shape="rect" id="node2" href="$classfl_1_1IntegralDefuzzifier.html" title="{fl::IntegralDefuzzifier\n|# _resolution\l|+ IntegralDefuzzifier()\l+ ~IntegralDefuzzifier()\l+ setResolution()\l+ getResolution()\l+ defaultResolution()\l}" alt="" coords="9,176,164,312"/>
+<area shape="rect" id="node3" href="$classfl_1_1Defuzzifier.html" title="{fl::Defuzzifier\n||+ Defuzzifier()\l+ ~Defuzzifier()\l+ className()\l+ defuzzify()\l}" alt="" coords="30,6,143,127"/>
+</map>

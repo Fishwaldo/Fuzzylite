@@ -1,0 +1,7 @@
+<map id="fl::Thresholded" name="fl::Thresholded">
+<area shape="rect" id="node2" href="$classfl_1_1Term.html" title="{fl::Term\n||+ Term()\l+ ~Term()\l+ setName()\l+ getName()\l+ toString()\l+ className()\l+ parameters()\l+ configure()\l+ membership()\l+ copy()\l}" alt="" coords="11,337,124,546"/>
+<area shape="rect" id="node3" title="STL class." alt="" coords="28,172,108,249"/>
+<area shape="rect" id="node4" title="STL class." alt="" coords="5,6,131,98"/>
+<area shape="rect" id="node5" href="$classfl_1_1TNorm.html" title="{fl::TNorm\n||+ TNorm()\l+ ~TNorm()\l}" alt="" coords="149,395,240,487"/>
+<area shape="rect" id="node6" href="$classfl_1_1Norm.html" title="{fl::Norm\n||+ Norm()\l+ ~Norm()\l+ className()\l+ compute()\l}" alt="" coords="141,150,248,271"/>
+</map>

@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['seldom_2ecpp',['Seldom.cpp',['../Seldom_8cpp.html',1,'']]],
+  ['seldom_2eh',['Seldom.h',['../Seldom_8h.html',1,'']]],
+  ['sigmoid_2ecpp',['Sigmoid.cpp',['../Sigmoid_8cpp.html',1,'']]],
+  ['sigmoid_2eh',['Sigmoid.h',['../Sigmoid_8h.html',1,'']]],
+  ['sigmoiddifference_2ecpp',['SigmoidDifference.cpp',['../SigmoidDifference_8cpp.html',1,'']]],
+  ['sigmoiddifference_2eh',['SigmoidDifference.h',['../SigmoidDifference_8h.html',1,'']]],
+  ['sigmoidproduct_2ecpp',['SigmoidProduct.cpp',['../SigmoidProduct_8cpp.html',1,'']]],
+  ['sigmoidproduct_2eh',['SigmoidProduct.h',['../SigmoidProduct_8h.html',1,'']]],
+  ['smallestofmaximum_2ecpp',['SmallestOfMaximum.cpp',['../SmallestOfMaximum_8cpp.html',1,'']]],
+  ['smallestofmaximum_2eh',['SmallestOfMaximum.h',['../SmallestOfMaximum_8h.html',1,'']]],
+  ['snorm_2eh',['SNorm.h',['../SNorm_8h.html',1,'']]],
+  ['snormfactory_2ecpp',['SNormFactory.cpp',['../SNormFactory_8cpp.html',1,'']]],
+  ['snormfactory_2eh',['SNormFactory.h',['../SNormFactory_8h.html',1,'']]],
+  ['somewhat_2ecpp',['Somewhat.cpp',['../Somewhat_8cpp.html',1,'']]],
+  ['somewhat_2eh',['Somewhat.h',['../Somewhat_8h.html',1,'']]],
+  ['sshape_2ecpp',['SShape.cpp',['../SShape_8cpp.html',1,'']]],
+  ['sshape_2eh',['SShape.h',['../SShape_8h.html',1,'']]]
+];

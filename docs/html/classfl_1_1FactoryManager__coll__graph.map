@@ -1,0 +1,14 @@
+<map id="fl::FactoryManager" name="fl::FactoryManager">
+<area shape="rect" id="node2" href="$classfl_1_1HedgeFactory.html" title="{fl::HedgeFactory\n||+ HedgeFactory()\l+ ~HedgeFactory()\l}" alt="" coords="51,665,183,757"/>
+<area shape="rect" id="node3" href="$classfl_1_1Factory.html" title="{fl::Factory\&lt; Hedge * \&gt;\n||+ Factory()\l+ ~Factory()\l+ registerClass()\l+ deregisterClass()\l+ hasRegisteredClass()\l+ available()\l+ createInstance()\l}" alt="" coords="5,448,165,613"/>
+<area shape="rect" id="node8" href="$classfl_1_1Factory.html" title="{fl::Factory\&lt; Defuzzifier * \&gt;\n||+ Factory()\l+ ~Factory()\l+ registerClass()\l+ deregisterClass()\l+ hasRegisteredClass()\l+ available()\l+ createInstance()\l}" alt="" coords="190,448,367,613"/>
+<area shape="rect" id="node10" href="$classfl_1_1Factory.html" title="{fl::Factory\&lt; Term * \&gt;\n||+ Factory()\l+ ~Factory()\l+ registerClass()\l+ deregisterClass()\l+ hasRegisteredClass()\l+ available()\l+ createInstance()\l}" alt="" coords="392,448,552,613"/>
+<area shape="rect" id="node12" href="$classfl_1_1Factory.html" title="{fl::Factory\&lt; SNorm * \&gt;\n||+ Factory()\l+ ~Factory()\l+ registerClass()\l+ deregisterClass()\l+ hasRegisteredClass()\l+ available()\l+ createInstance()\l}" alt="" coords="576,448,736,613"/>
+<area shape="rect" id="node14" href="$classfl_1_1Factory.html" title="{fl::Factory\&lt; TNorm * \&gt;\n||+ Factory()\l+ ~Factory()\l+ registerClass()\l+ deregisterClass()\l+ hasRegisteredClass()\l+ available()\l+ createInstance()\l}" alt="" coords="760,448,920,613"/>
+<area shape="rect" id="node5" title="STL class." alt="" coords="432,149,512,227"/>
+<area shape="rect" id="node6" title="STL class." alt="" coords="409,6,535,98"/>
+<area shape="rect" id="node7" href="$classfl_1_1DefuzzifierFactory.html" title="{fl::DefuzzifierFactory\n||+ DefuzzifierFactory()\l+ ~DefuzzifierFactory()\l}" alt="" coords="221,665,379,757"/>
+<area shape="rect" id="node9" href="$classfl_1_1TermFactory.html" title="{fl::TermFactory\n||+ TermFactory()\l+ ~TermFactory()\l}" alt="" coords="410,665,533,757"/>
+<area shape="rect" id="node11" href="$classfl_1_1SNormFactory.html" title="{fl::SNormFactory\n||+ SNormFactory()\l+ ~SNormFactory()\l}" alt="" coords="566,665,700,757"/>
+<area shape="rect" id="node13" href="$classfl_1_1TNormFactory.html" title="{fl::TNormFactory\n||+ TNormFactory()\l+ ~TNormFactory()\l}" alt="" coords="734,665,868,757"/>
+</map>
