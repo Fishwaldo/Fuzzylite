@@ -1,6 +1,0 @@
-<map id="fl::InputVariable" name="fl::InputVariable">
-<area shape="rect" id="node2" href="$classfl_1_1Variable.html" title="{fl::Variable\n|# _minimum\l# _maximum\l# _enabled\l|+ Variable()\l+ Variable()\l+ ~Variable()\l+ setName()\l+ getName()\l+ setRange()\l+ range()\l+ setMinimum()\l+ getMinimum()\l+ setMaximum()\land 15 more...\l}" alt="" coords="99,707,216,960"/>
-<area shape="rect" id="node4" href="$classfl_1_1Term.html" title="{fl::Term\n||+ Term()\l+ ~Term()\l+ setName()\l+ getName()\l+ toString()\l+ className()\l+ parameters()\l+ configure()\l+ membership()\l+ copy()\l}" alt="" coords="47,291,160,501"/>
-<area shape="rect" id="node5" title="STL class." alt="" coords="147,149,227,227"/>
-<area shape="rect" id="node6" title="STL class." alt="" coords="123,6,249,98"/>
-</map>

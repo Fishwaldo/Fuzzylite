@@ -1,4 +1,0 @@
-<map id="fl::Variable" name="fl::Variable">
-<area shape="rect" id="node2" href="$classfl_1_1InputVariable.html" title="{fl::InputVariable\n|# _inputValue\l|+ InputVariable()\l+ ~InputVariable()\l+ setInputValue()\l+ getInputValue()\l+ toString()\l}" alt="" coords="5,417,131,553"/>
-<area shape="rect" id="node3" href="$classfl_1_1OutputVariable.html" title="{fl::OutputVariable\n|# _fuzzyOutput\l# _defuzzifier\l# _defaultValue\l# _lastValidOutput\l# _lockOutputRange\l# _lockValidOutput\l|+ OutputVariable()\l+ ~OutputVariable()\l+ fuzzyOutput()\l+ setMinimum()\l+ setMaximum()\l+ setDefuzzifier()\l+ getDefuzzifier()\l+ setDefaultValue()\l+ getDefaultValue()\l+ setLastValidOutput()\land 8 more...\l}" alt="" coords="155,337,308,634"/>
-</map>

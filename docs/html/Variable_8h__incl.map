@@ -1,9 +1,0 @@
-<map id="fl/variable/Variable.h" name="fl/variable/Variable.h">
-<area shape="rect" id="node2" href="$fuzzylite_8h.html" title="fl/fuzzylite.h" alt="" coords="222,304,315,331"/>
-<area shape="rect" id="node6" href="$Centroid_8h.html" title="fl/defuzzifier/Centroid.h" alt="" coords="110,80,267,107"/>
-<area shape="rect" id="node10" href="$Norm_8h.html" title="fl/norm/Norm.h" alt="" coords="347,80,456,107"/>
-<area shape="rect" id="node7" href="$IntegralDefuzzifier_8h.html" title="fl/defuzzifier/IntegralDefuzzifier.h" alt="" coords="25,155,239,181"/>
-<area shape="rect" id="node8" href="$Defuzzifier_8h.html" title="fl/defuzzifier/Defuzzifier.h" alt="" coords="120,229,291,256"/>
-<area shape="rect" id="node11" href="$Operation_8h.html" title="fl/Operation.h" alt="" coords="425,155,524,181"/>
-<area shape="rect" id="node12" href="$Exception_8h.html" title="fl/Exception.h" alt="" coords="468,229,570,256"/>
-</map>

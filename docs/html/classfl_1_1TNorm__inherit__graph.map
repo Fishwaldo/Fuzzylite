@@ -1,9 +1,0 @@
-<map id="fl::TNorm" name="fl::TNorm">
-<area shape="rect" id="node3" href="$classfl_1_1AlgebraicProduct.html" title="{fl::AlgebraicProduct\n||+ className()\l+ compute()\l+ constructor()\l}" alt="" coords="5,317,141,424"/>
-<area shape="rect" id="node4" href="$classfl_1_1BoundedDifference.html" title="{fl::BoundedDifference\n||+ className()\l+ compute()\l+ constructor()\l}" alt="" coords="166,317,313,424"/>
-<area shape="rect" id="node5" href="$classfl_1_1DrasticProduct.html" title="{fl::DrasticProduct\n||+ className()\l+ compute()\l+ constructor()\l}" alt="" coords="338,317,461,424"/>
-<area shape="rect" id="node6" href="$classfl_1_1EinsteinProduct.html" title="{fl::EinsteinProduct\n||+ className()\l+ compute()\l+ constructor()\l}" alt="" coords="486,317,615,424"/>
-<area shape="rect" id="node7" href="$classfl_1_1HamacherProduct.html" title="{fl::HamacherProduct\n||+ className()\l+ compute()\l+ constructor()\l}" alt="" coords="639,317,781,424"/>
-<area shape="rect" id="node8" href="$classfl_1_1Minimum.html" title="{fl::Minimum\n||+ className()\l+ compute()\l+ constructor()\l}" alt="" coords="806,317,913,424"/>
-<area shape="rect" id="node2" href="$classfl_1_1Norm.html" title="{fl::Norm\n||+ Norm()\l+ ~Norm()\l+ className()\l+ compute()\l}" alt="" coords="421,6,528,127"/>
-</map>
