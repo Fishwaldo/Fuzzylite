@@ -71,6 +71,8 @@ namespace fl {
         static std::string FL_AND;
         static std::string FL_OR;
         static std::string FL_WITH;
+        static std::string FL_SET;
+        static std::string FL_IN;
 
         static std::string ifKeyword();
         static std::string isKeyword();

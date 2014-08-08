@@ -70,12 +70,13 @@ namespace fl {
             term->setThreshold(threshold);
             term->setActivation(activation);
             OutputVariable* outputVariable = dynamic_cast<OutputVariable*> (proposition->variable);
+            outputVariable->setTimer(m_timer);
             outputVariable->fuzzyOutput()->addTerm(term);
             FL_DBG("Accumulating " << term->toString());
         }
     }
 
-    void Consequent::load(const std::string& consequent, const Engine* engine) {
+    void Consequent::load(const std::string& consequent, const Engine* engine, int timer) {
 
         /**
          Extracts the list of propositions from the consequent
@@ -94,7 +95,7 @@ namespace fl {
         int state = S_VARIABLE;
 
         _conclusions.clear();
-
+        m_timer = timer;
         Proposition* proposition = NULL;
 
         std::stringstream tokenizer(consequent);
@@ -103,6 +104,7 @@ namespace fl {
             if (state bitand S_VARIABLE) {
                 if (engine->hasOutputVariable(token)) {
                     proposition = new Proposition;
+                    proposition->timer = timer;
                     proposition->variable = engine->getOutputVariable(token);
                     _conclusions.push_back(proposition);
 

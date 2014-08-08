@@ -37,7 +37,8 @@ namespace fl {
     _defuzzifier(NULL), _defaultValue(fl::nan),
     _lastValidOutput(fl::nan),
     _lockOutputRange(false),
-    _lockValidOutput(false) {
+    _lockValidOutput(false),
+    timer(0) {
     }
 
     OutputVariable::~OutputVariable() {
@@ -97,6 +98,17 @@ namespace fl {
 
     bool OutputVariable::isLockingValidOutput() const {
         return this->_lockValidOutput;
+    }
+    void OutputVariable::setTimer(int time) {
+        if (time == 0) 
+            return;
+        if ((this->timer == 0) || (this->timer > time)) {
+            this->timer = time;
+        }
+        
+    }
+    int OutputVariable::getTimer() const {
+        return this->timer;
     }
 
     scalar OutputVariable::defuzzify() {

@@ -42,6 +42,8 @@ namespace fl {
     std::string Rule::FL_AND = "and";
     std::string Rule::FL_OR = "or";
     std::string Rule::FL_WITH = "with";
+    std::string Rule::FL_IN = "in";
+    std::string Rule::FL_SET = "set";
 
     Rule::Rule()
     : _weight(1.0), _antecedent(NULL), _consequent(NULL) {
@@ -136,15 +138,15 @@ namespace fl {
         result->setText(rule);
         std::istringstream tokenizer(rule);
         std::string token;
-        std::ostringstream ossAntecedent, ossConsequent;
+        std::ostringstream ossAntecedent, ossConsequent, ossTimer;
+        int timer = 0;
 
         enum FSM {
-            S_NONE, S_IF, S_THEN, S_WITH, S_END
+            S_NONE, S_IF, S_THEN, S_TIME, S_WITH, S_END
         };
         FSM state = S_NONE;
         try {
             while (tokenizer >> token) {
-
                 switch (state) {
                     case S_NONE:
                         if (token == Rule::FL_IF) state = S_IF;
@@ -161,7 +163,12 @@ namespace fl {
                         break;
                     case S_THEN:
                         if (token == Rule::FL_WITH) state = S_WITH;
+                        else if (token == Rule::FL_IN) state = S_TIME;
                         else ossConsequent << token << " ";
+                        break;
+                    case S_TIME:
+                        if (token == Rule::FL_SET) state = S_THEN;
+                        else ossTimer << token << " ";
                         break;
                     case S_WITH:
                         try {
@@ -193,13 +200,44 @@ namespace fl {
                 std::ostringstream ex;
                 ex << "[syntax error] expected a numeric value as the weight of the rule: " << rule;
                 throw fl::Exception(ex.str(), FL_AT);
+            } else if (state == S_TIME) {
+                std::ostringstream ex;
+                ex << "[syntax error] expected a timername/value in the rule: " << rule;
+                throw fl::Exception(ex.str(), FL_AT);
             }
+
+            /* parse the Timer Value if it exists */
+            if (ossTimer.str().length() > 0) {
+                token = ossTimer.str();
+                int multiplier = 0;
+                if (isdigit(token[0])) {
+                    std::stringstream(token) >> timer;
+                }
+                for (std::string::iterator it = token.begin(); it != token.end(); ++it) {
+                    switch (*it) {
+                        case 's':
+                            multiplier = 0;
+                            break;
+                        case 'm':
+                            multiplier = 60;
+                            break;
+                        case 'h':
+                            multiplier = 3600;
+                            break;
+                        case 'd':
+                            multiplier = 86400;
+                            break;
+                    }
+                } 
+                timer = timer * multiplier;
+            }
+
 
             result->_antecedent = new Antecedent;
             result->_antecedent->load(ossAntecedent.str(), engine);
 
             result->_consequent = new Consequent;
-            result->_consequent->load(ossConsequent.str(), engine);
+            result->_consequent->load(ossConsequent.str(), engine, timer);
         } catch (fl::Exception& ex) {
             delete result;
             throw ex;

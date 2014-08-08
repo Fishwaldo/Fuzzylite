@@ -54,6 +54,7 @@ namespace fl {
         Proposition();
 
         std::string toString() const;
+        int timer;
     };
 
 

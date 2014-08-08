@@ -39,7 +39,8 @@ namespace fl {
         scalar _lastValidOutput;
         bool _lockOutputRange;
         bool _lockValidOutput;
-
+        int timer;
+        
     public:
         OutputVariable(const std::string& name = "",
                 scalar minimum = -fl::inf, scalar maximum = fl::inf);
@@ -69,6 +70,9 @@ namespace fl {
         virtual scalar defuzzifyNoLocks() const;
 
         virtual std::string toString() const;
+        
+        virtual int getTimer() const;
+        virtual void setTimer(int time);        
 
     };
 

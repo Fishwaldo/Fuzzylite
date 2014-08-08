@@ -43,11 +43,13 @@ namespace fl {
 
         virtual std::vector<Proposition*> conclusions() const;
 
-        virtual void load(const std::string& consequent, const Engine* engine);
+        virtual void load(const std::string& consequent, const Engine* engine, int timer = 0);
 
         virtual void modify(scalar strength, const TNorm* activation);
 
         virtual std::string toString() const;
+    private:
+        int m_timer;
     };
 
 }

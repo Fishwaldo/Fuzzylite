@@ -208,7 +208,66 @@ int main(int argc, char** argv) {
 //        fuzzylite::setDecimals(8);
 //        exportAllExamples("fis", "fld");
 //        return 0;
-        return Console::main(argc, argv);
+//        return Console::main(argc, argv);
+fl::Engine* engine = new fl::Engine("simple-dimmer");
+ 
+ fl::InputVariable* ambient = new fl::InputVariable;
+ ambient->setName("Ambient");
+ ambient->setRange(0.000, 1.000);
+ ambient->addTerm(new fl::Triangle("DARK", 0.000, 0.500));
+ ambient->addTerm(new fl::Triangle("MEDIUM", 0.250, 0.750));
+ ambient->addTerm(new fl::Triangle("BRIGHT", 0.500, 1.000));
+ engine->addInputVariable(ambient);
+
+ fl::OutputVariable* power = new fl::OutputVariable;
+ power->setName("Power");
+ power->setRange(0.000, 2.000);
+ power->setDefaultValue(fl::nan);
+ power->addTerm(new fl::Triangle("LOW", 0.000, 1.000));
+ power->addTerm(new fl::Triangle("MEDIUM", 0.500, 1.500));
+ power->addTerm(new fl::Triangle("HIGH", 1.000, 2.000));
+ engine->addOutputVariable(power);
+
+
+ fl::OutputVariable* power1 = new fl::OutputVariable;
+ power1->setName("Power1");
+ power1->setRange(0.000, 2.000);
+ power1->setDefaultValue(fl::nan);
+ power1->addTerm(new fl::Triangle("LOW", 0.000, 1.000));
+ power1->addTerm(new fl::Triangle("MEDIUM", 0.500, 1.500));
+ power1->addTerm(new fl::Triangle("HIGH", 1.000, 2.000));
+ engine->addOutputVariable(power1);
+ 
+ fl::RuleBlock* ruleblock = new fl::RuleBlock;
+ ruleblock->addRule(fl::Rule::parse("if Ambient is DARK then Power is HIGH", engine));
+ ruleblock->addRule(fl::Rule::parse("if Ambient is MEDIUM then Power is MEDIUM", engine));
+ ruleblock->addRule(fl::Rule::parse("if Ambient is BRIGHT then in 5m set Power is LOW", engine));
+ ruleblock->addRule(fl::Rule::parse("if Ambient is BRIGHT then in 533m set Power is LOW and Power1 is HIGH", engine));
+//# ruleblock->addRule(fl::Rule::parse("if Ambient is BRIGHT then in 5m Power is LOW", engine));
+ engine->addRuleBlock(ruleblock);
+ 
+ //No Conjunction or Disjunction is needed
+ engine->configure("", "", "AlgebraicProduct", "AlgebraicSum", "Centroid");
+  
+ std::string status;
+ if (not engine->isReady(&status))
+      throw fl::Exception("Engine not ready. "
+            "The following errors were encountered:\n" + status, FL_AT);
+  
+ for (int i = 0; i < 50; ++i){
+     fl::scalar light = ambient->getMinimum() + i * (ambient->range() / 50);
+     ambient->setInputValue(light);
+     engine->process();
+     FL_LOG("Ambient.input = " << fl::Op::str(light) << " -> " << 
+            "Power.output = " << fl::Op::str(power->defuzzify()) << 
+                      " Timer: " << power->getTimer() << 
+            " Power1.output = " << fl::Op::str(power1->defuzzify()) << 
+            " Timer: " << power1->getTimer());
+ }
+ std::cout << engine->toString() << std::endl;
+
+
+
     } catch (fl::Exception& e) {
         FL_LOG(e.what());
         FL_LOG(e.btCallStack());
