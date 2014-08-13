@@ -112,6 +112,7 @@
 #include "fl/term/Trapezoid.h"
 #include "fl/term/Triangle.h"
 #include "fl/term/ZShape.h"
+#include "fl/term/DateTime.h"
 
 #include "fl/variable/InputVariable.h"
 #include "fl/variable/OutputVariable.h"

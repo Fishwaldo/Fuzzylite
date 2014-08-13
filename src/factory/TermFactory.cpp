@@ -42,6 +42,7 @@
 #include "fl/term/Trapezoid.h"
 #include "fl/term/Triangle.h"
 #include "fl/term/ZShape.h"
+#include "fl/term/DateTime.h"
 
 namespace fl {
 
@@ -63,6 +64,7 @@ namespace fl {
         registerClass(Trapezoid().className(), &(Trapezoid::constructor));
         registerClass(Triangle().className(), &(Triangle::constructor));
         registerClass(ZShape().className(), &(ZShape::constructor));
+        registerClass(DateTime().className(), &(DateTime::constructor));
     }
 
     TermFactory::~TermFactory() {

@@ -72,6 +72,9 @@ src/term/Gaussian.cpp
 src/term/Rectangle.cpp
 src/term/PiShape.cpp
 src/term/Ramp.cpp
+src/term/DateTime.cpp
 src/variable/Variable.cpp
 src/variable/OutputVariable.cpp
 src/variable/InputVariable.cpp
+src/util/approxidate.cpp
+

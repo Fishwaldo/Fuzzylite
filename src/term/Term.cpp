@@ -44,4 +44,11 @@ namespace fl {
     std::string Term::toString() const {
         return FllExporter("", "; ").toString(this);
     }
+    bool Term::hasArgs() {
+    	return false;
+    }
+    void Term::setArgs(std::string param) {
+    /* Nothing */
+    	(void)param;
+    }
 }

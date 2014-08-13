@@ -119,7 +119,7 @@ namespace fl {
         std::string token;
         
         enum FSM {
-            S_VARIABLE = 1, S_IS = 2, S_HEDGE = 4, S_TERM = 8, S_AND_OR = 16
+            S_VARIABLE = 1, S_IS = 2, S_HEDGE = 4, S_TERM = 8, S_AND_OR = 16, S_ARGS = 32
         };
         int state = S_VARIABLE;
         std::stack<Expression*> expressionStack;
@@ -170,11 +170,18 @@ namespace fl {
                 if (proposition->variable->hasTerm(token)) {
                     proposition->term =
                             proposition->variable->getTerm(token);
-                    state = S_VARIABLE bitor S_AND_OR;
+                    if (proposition->term->hasArgs()) {
+                    	state = S_ARGS;
+                    } else {
+                    	state = S_VARIABLE bitor S_AND_OR;
+                    }
                     continue;
                 }
             }
-
+            if (state bitand S_ARGS) {
+            	proposition->term->setArgs(token);
+            	continue;
+            }
             if (state bitand S_AND_OR) {
                 if (token == Rule::FL_AND or token == Rule::FL_OR) {
                     if (expressionStack.size() < 2) {
@@ -211,6 +218,11 @@ namespace fl {
                 std::ostringstream ex;
                 ex << "[syntax error] expected hedge or term, but found <" << token << ">";
                 throw fl::Exception(ex.str(), FL_AT);
+            }
+            if (state bitand S_ARGS) {
+            	std::ostringstream ex;
+            	ex << "[syntax error] Expected Argument to term, but found <" << token << ">";
+            	throw fl::Exception(ex.str(), FL_AT);
             }
             std::ostringstream ex;
             ex << "[syntax error] unexpected token <" << token << ">";

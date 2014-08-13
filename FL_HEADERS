@@ -80,6 +80,8 @@ fl/term/Bell.h
 fl/term/Discrete.h
 fl/term/Term.h
 fl/term/ZShape.h
+fl/term/DateTime.h
 fl/variable/InputVariable.h
 fl/variable/Variable.h
 fl/variable/OutputVariable.h
+fl/util/approxidate.h

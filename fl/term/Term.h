@@ -60,7 +60,8 @@ namespace fl {
         virtual scalar membership(scalar x) const = 0;
 
         virtual Term* copy() const = 0;
-        
+        virtual bool hasArgs();
+        virtual void setArgs(std::string param);
     };
 
 }

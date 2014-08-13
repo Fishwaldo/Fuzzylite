@@ -27,6 +27,7 @@
 #include <cstdlib>
 #include <signal.h>
 #include <fstream>
+#include <sys/time.h>
 
 using namespace fl;
 
@@ -217,6 +218,7 @@ fl::Engine* engine = new fl::Engine("simple-dimmer");
  ambient->addTerm(new fl::Triangle("DARK", 0.000, 0.500));
  ambient->addTerm(new fl::Triangle("MEDIUM", 0.250, 0.750));
  ambient->addTerm(new fl::Triangle("BRIGHT", 0.500, 1.000));
+ ambient->addTerm(new fl::DateTime("Now", DateTime::TIME_GREATERTHAN));
  engine->addInputVariable(ambient);
 
  fl::OutputVariable* power = new fl::OutputVariable;
@@ -239,6 +241,7 @@ fl::Engine* engine = new fl::Engine("simple-dimmer");
  engine->addOutputVariable(power1);
  
  fl::RuleBlock* ruleblock = new fl::RuleBlock;
+ ruleblock->addRule(fl::Rule::parse("if Ambient is Now(2:27pm) then Power is very HIGH", engine));
  ruleblock->addRule(fl::Rule::parse("if Ambient is DARK then Power is HIGH", engine));
  ruleblock->addRule(fl::Rule::parse("if Ambient is MEDIUM then Power is MEDIUM", engine));
  ruleblock->addRule(fl::Rule::parse("if Ambient is BRIGHT then in 5m set Power is LOW", engine));
@@ -253,7 +256,17 @@ fl::Engine* engine = new fl::Engine("simple-dimmer");
  if (not engine->isReady(&status))
       throw fl::Exception("Engine not ready. "
             "The following errors were encountered:\n" + status, FL_AT);
-  
+
+ struct timeval tv;
+ gettimeofday (&tv, NULL);
+ ambient->setInputValue(tv.tv_sec);
+ engine->process();
+ FL_LOG("Ambient.input = " << tv.tv_sec << " -> " <<
+        "Power.output = " << fl::Op::str(power->defuzzify()) <<
+                  " Timer: " << power->getTimer() <<
+        " Power1.output = " << fl::Op::str(power1->defuzzify()) <<
+        " Timer: " << power1->getTimer());
+#if 0
  for (int i = 0; i < 50; ++i){
      fl::scalar light = ambient->getMinimum() + i * (ambient->range() / 50);
      ambient->setInputValue(light);
@@ -264,6 +277,7 @@ fl::Engine* engine = new fl::Engine("simple-dimmer");
             " Power1.output = " << fl::Op::str(power1->defuzzify()) << 
             " Timer: " << power1->getTimer());
  }
+#endif
  std::cout << engine->toString() << std::endl;
 
 
