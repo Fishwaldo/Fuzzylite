@@ -45,6 +45,7 @@ namespace fl {
         	case TIME_EQUALTO:
         		return "Equal To";
         }
+        return "Unknown";
     }
 
     void DateTime::configure(const std::string& parameters) {
