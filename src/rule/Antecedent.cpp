@@ -180,6 +180,7 @@ namespace fl {
             }
             if (state bitand S_ARGS) {
             	proposition->term->setArgs(token);
+                state = S_VARIABLE bitor S_AND_OR;
             	continue;
             }
             if (state bitand S_AND_OR) {

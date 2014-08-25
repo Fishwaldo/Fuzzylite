@@ -194,6 +194,8 @@ int main(int argc, char** argv) {
     signal(SIGILL, fl::Exception::signalHandler);
     signal(SIGSEGV, fl::Exception::signalHandler);
     signal(SIGFPE, fl::Exception::signalHandler);
+    fl::fuzzylite::setLogging(true);
+    fl::fuzzylite::setDebug(true);
 #ifdef FL_UNIX
     signal(SIGBUS, fl::Exception::signalHandler);
     signal(SIGPIPE, fl::Exception::signalHandler);
@@ -221,6 +223,15 @@ fl::Engine* engine = new fl::Engine("simple-dimmer");
  ambient->addTerm(new fl::DateTime("Now", DateTime::TIME_GREATERTHAN));
  engine->addInputVariable(ambient);
 
+ fl::InputVariable* ambient1 = new fl::InputVariable;
+ ambient1->setName("Ambient1");
+ ambient1->setRange(0.000, 1.000);
+ ambient1->addTerm(new fl::Triangle("DARK", 0.000, 0.500));
+ ambient1->addTerm(new fl::Triangle("MEDIUM", 0.250, 0.750));
+ ambient1->addTerm(new fl::Triangle("BRIGHT", 0.500, 1.000));
+ engine->addInputVariable(ambient1);
+
+
  fl::OutputVariable* power = new fl::OutputVariable;
  power->setName("Power");
  power->setRange(0.000, 2.000);
@@ -241,7 +252,7 @@ fl::Engine* engine = new fl::Engine("simple-dimmer");
  engine->addOutputVariable(power1);
  
  fl::RuleBlock* ruleblock = new fl::RuleBlock;
- ruleblock->addRule(fl::Rule::parse("if Ambient is Now(2:27pm) then Power is very HIGH", engine));
+ ruleblock->addRule(fl::Rule::parse("if Ambient1 is DARK and Ambient is Now(2:27pm) then Power is very HIGH", engine));
  ruleblock->addRule(fl::Rule::parse("if Ambient is DARK then Power is HIGH", engine));
  ruleblock->addRule(fl::Rule::parse("if Ambient is MEDIUM then Power is MEDIUM", engine));
  ruleblock->addRule(fl::Rule::parse("if Ambient is BRIGHT then in 5m set Power is LOW", engine));
@@ -250,7 +261,7 @@ fl::Engine* engine = new fl::Engine("simple-dimmer");
  engine->addRuleBlock(ruleblock);
  
  //No Conjunction or Disjunction is needed
- engine->configure("", "", "AlgebraicProduct", "AlgebraicSum", "Centroid");
+ engine->configure("AlgebraicProduct", "", "AlgebraicProduct", "AlgebraicSum", "Centroid");
   
  std::string status;
  if (not engine->isReady(&status))
@@ -260,6 +271,7 @@ fl::Engine* engine = new fl::Engine("simple-dimmer");
  struct timeval tv;
  gettimeofday (&tv, NULL);
  ambient->setInputValue(tv.tv_sec);
+ ambient1->setInputValue(0.1);
  engine->process();
  FL_LOG("Ambient.input = " << tv.tv_sec << " -> " <<
         "Power.output = " << fl::Op::str(power->defuzzify()) <<
