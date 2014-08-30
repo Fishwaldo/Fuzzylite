@@ -51,4 +51,7 @@ namespace fl {
     /* Nothing */
     	(void)param;
     }
+    std::string Term::getArgs() {
+        return "";
+    }
 }

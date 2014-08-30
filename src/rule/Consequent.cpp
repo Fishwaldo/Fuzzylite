@@ -188,6 +188,8 @@ namespace fl {
 
     std::string Consequent::toString() const {
         std::stringstream ss;
+        if (m_timer > 0)
+            ss << "in " << m_timer << " set "; 
         for (std::size_t i = 0; i < _conclusions.size(); ++i) {
             ss << _conclusions.at(i)->toString();
             if (i + 1 < _conclusions.size())

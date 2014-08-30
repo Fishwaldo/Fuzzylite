@@ -292,6 +292,17 @@ fl::Engine* engine = new fl::Engine("simple-dimmer");
 #endif
  std::cout << engine->toString() << std::endl;
 
+    Exporter* exporter;
+    exporter = new JavaExporter;
+    std::cout << exporter->toString(engine) << std::endl;
+#if 0
+    else if (to == "fld") exporter = new FldExporter(" ", 1024);
+    else if (to == "fcl") exporter = new FclExporter;
+    else if (to == "fis") exporter = new FisExporter;
+    else if (to == "cpp") exporter = new CppExporter;
+    else if (to == "java") exporter = new JavaExporter;
+#endif
+
 
 
     } catch (fl::Exception& e) {

@@ -57,6 +57,7 @@ namespace fl {
         static Term* constructor();
         bool hasArgs();
         void setArgs(std::string param);
+        std::string getArgs();
     private:
         std::string arg;
         TIME_TYPE type;

@@ -62,6 +62,7 @@ namespace fl {
         virtual Term* copy() const = 0;
         virtual bool hasArgs();
         virtual void setArgs(std::string param);
+        virtual std::string getArgs();
     };
 
 }

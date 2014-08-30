@@ -42,6 +42,8 @@ namespace fl {
         if (term) { //term is NULL if hedge is any
             ss << term->getName();
         }
+        if (term->hasArgs())
+            ss << "(" << term->getArgs() << ")";
         return ss.str();
     }
 

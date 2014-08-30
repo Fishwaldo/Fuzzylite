@@ -39,11 +39,11 @@ namespace fl {
     std::string DateTime::parameters() const {
         switch (this->type) {
         	case TIME_GREATERTHAN:
-        		return "Greater Than";
+        		return "TIME_GREATERTHAN";
         	case TIME_LESSTHAN:
-        		return "Less Than";
+        		return "TIME_LESSTHAN";
         	case TIME_EQUALTO:
-        		return "Equal To";
+        		return "TIME_EQUALTO";
         }
         return "Unknown";
     }
@@ -102,6 +102,9 @@ namespace fl {
                     << this->arg;
             throw fl::Exception(ex.str(), FL_AT);
     	}
+    }
+    std::string DateTime::getArgs() {
+        return this->arg;
     }
 
 }
