@@ -295,7 +295,7 @@ namespace fl {
 
     InputVariable* Engine::getInputVariable(const std::string& name) const {
         for (std::size_t i = 0; i < _inputVariables.size(); ++i) {
-            if (_inputVariables.at(i)->getName() == name)
+            if (fl::icasecmp(_inputVariables.at(i)->getName(), name))
                 return _inputVariables.at(i);
         }
         throw fl::Exception("[engine error] input variable <" + name + "> not found", FL_AT);
@@ -303,7 +303,7 @@ namespace fl {
 
     bool Engine::hasInputVariable(const std::string& name) const {
         for (std::size_t i = 0; i < _inputVariables.size(); ++i) {
-            if (_inputVariables.at(i)->getName() == name)
+            if (fl::icasecmp(_inputVariables.at(i)->getName(), name))
                 return true;
         }
         return false;
@@ -317,7 +317,7 @@ namespace fl {
 
     InputVariable* Engine::removeInputVariable(const std::string& name) {
         for (std::size_t i = 0; i < _inputVariables.size(); ++i) {
-            if (_inputVariables.at(i)->getName() == name) {
+            if (fl::icasecmp(_inputVariables.at(i)->getName(), name)) {
                 InputVariable* result = this->_inputVariables.at(i);
                 this->_inputVariables.erase(this->_inputVariables.begin() + i);
                 return result;
@@ -352,7 +352,7 @@ namespace fl {
 
     OutputVariable* Engine::getOutputVariable(const std::string& name) const {
         for (std::size_t i = 0; i < _outputVariables.size(); ++i) {
-            if (_outputVariables.at(i)->getName() == name)
+            if (fl::icasecmp(_outputVariables.at(i)->getName(), name))
                 return _outputVariables.at(i);
         }
         throw fl::Exception("[engine error] output variable <" + name + "> not found", FL_AT);
@@ -360,7 +360,7 @@ namespace fl {
 
     bool Engine::hasOutputVariable(const std::string& name) const {
         for (std::size_t i = 0; i < _outputVariables.size(); ++i) {
-            if (_outputVariables.at(i)->getName() == name)
+            if (fl::icasecmp(_outputVariables.at(i)->getName(), name))
                 return true;
         }
         return false;
@@ -374,7 +374,7 @@ namespace fl {
 
     OutputVariable* Engine::removeOutputVariable(const std::string& name) {
         for (std::size_t i = 0; i < _outputVariables.size(); ++i) {
-            if (_outputVariables.at(i)->getName() == name) {
+            if (fl::icasecmp(_outputVariables.at(i)->getName(), name)) {
                 OutputVariable* result = this->_outputVariables.at(i);
                 this->_outputVariables.erase(this->_outputVariables.begin() + i);
                 return result;
@@ -408,7 +408,7 @@ namespace fl {
 
     RuleBlock* Engine::getRuleBlock(const std::string& name) const {
         for (std::size_t i = 0; i < _ruleblocks.size(); ++i) {
-            if (_ruleblocks.at(i)->getName() == name)
+            if (fl::icasecmp(_ruleblocks.at(i)->getName(), name))
                 return _ruleblocks.at(i);
         }
         throw fl::Exception("[engine error] rule block <" + name + "> not found", FL_AT);
@@ -416,7 +416,7 @@ namespace fl {
 
     bool Engine::hasRuleBlock(const std::string& name) const {
         for (std::size_t i = 0; i < _ruleblocks.size(); ++i) {
-            if (_ruleblocks.at(i)->getName() == name)
+            if (fl::icasecmp(_ruleblocks.at(i)->getName(), name))
                 return true;
         }
         return false;
@@ -430,7 +430,7 @@ namespace fl {
 
     RuleBlock* Engine::removeRuleBlock(const std::string& name) {
         for (std::size_t i = 0; i < _ruleblocks.size(); ++i) {
-            if (_ruleblocks.at(i)->getName() == name) {
+            if (fl::icasecmp(_ruleblocks.at(i)->getName(), name)) {
                 RuleBlock* result = this->_ruleblocks.at(i);
                 this->_ruleblocks.erase(this->_ruleblocks.begin() + i);
                 return result;
@@ -464,7 +464,7 @@ namespace fl {
 
     Hedge* Engine::getHedge(const std::string& name) const {
         for (std::size_t i = 0; i < this->_hedges.size(); ++i) {
-            if (name == this->_hedges.at(i)->name())
+            if (fl::icasecmp(name, this->_hedges.at(i)->name()))
                 return this->_hedges.at(i);
         }
         throw fl::Exception("[engine error] hedge <" + name + "> not found", FL_AT);
@@ -472,7 +472,7 @@ namespace fl {
 
     bool Engine::hasHedge(const std::string& name) const {
         for (std::size_t i = 0; i < this->_hedges.size(); ++i) {
-            if (name == this->_hedges.at(i)->name())
+            if (fl::icasecmp(name, this->_hedges.at(i)->name()))
                 return true;
         }
         return false;
@@ -486,7 +486,7 @@ namespace fl {
 
     Hedge* Engine::removeHedge(const std::string& name) {
         for (std::size_t i = 0; i < this->_hedges.size(); ++i) {
-            if (name == this->_hedges.at(i)->name()) {
+            if (fl::icasecmp(name, this->_hedges.at(i)->name())) {
                 Hedge* result = this->_hedges.at(i);
                 this->_hedges.erase(this->_hedges.begin() + i);
                 return result;

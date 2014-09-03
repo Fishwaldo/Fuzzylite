@@ -20,6 +20,9 @@
  *      Author: jcrada
  */
 
+#include <string>
+#include <algorithm>
+#include <cctype>
 #include "fl/fuzzylite.h"
 
 namespace fl {
@@ -58,7 +61,7 @@ namespace fl {
         return "Unix";
 #elif defined FL_WINDOWS
         return "Windows";
-#else 
+#else
         return "?";
 #endif
     }
@@ -116,5 +119,21 @@ namespace fl {
     bool fuzzylite::logging() {
         return _logging;
     }
+
+    bool icasecmp(const std::string& a, const std::string& b) {
+        unsigned int sz = a.size();
+        if (b.size() != sz)
+            return false;
+        for (unsigned int i = 0; i < sz; ++i)
+            if (tolower(a[i]) != tolower(b[i]))
+                return false;
+        return true;
+    }
+    std::string toLower(std::string word)
+    {
+    	std::transform(word.begin(), word.end(), word.begin(), ::tolower); // scope resolution operator ::
+    	return word;
+    }
+
 
 }

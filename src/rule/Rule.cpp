@@ -149,7 +149,7 @@ namespace fl {
             while (tokenizer >> token) {
                 switch (state) {
                     case S_NONE:
-                        if (token == Rule::FL_IF) state = S_IF;
+                        if (fl::icasecmp(token, Rule::FL_IF)) state = S_IF;
                         else {
                             std::ostringstream ex;
                             ex << "[syntax error] expected keyword <" << Rule::FL_IF <<
@@ -158,16 +158,16 @@ namespace fl {
                         }
                         break;
                     case S_IF:
-                        if (token == Rule::FL_THEN) state = S_THEN;
+                        if (fl::icasecmp(token, Rule::FL_THEN)) state = S_THEN;
                         else ossAntecedent << token << " ";
                         break;
                     case S_THEN:
-                        if (token == Rule::FL_WITH) state = S_WITH;
-                        else if (token == Rule::FL_IN) state = S_TIME;
+                        if (fl::icasecmp(token, Rule::FL_WITH)) state = S_WITH;
+                        else if (fl::icasecmp(token, Rule::FL_IN)) state = S_TIME;
                         else ossConsequent << token << " ";
                         break;
                     case S_TIME:
-                        if (token == Rule::FL_SET) state = S_THEN;
+                        if (fl::icasecmp(token, Rule::FL_SET)) state = S_THEN;
                         else ossTimer << token << " ";
                         break;
                     case S_WITH:
@@ -214,7 +214,7 @@ namespace fl {
                     std::stringstream(token) >> timer;
                 }
                 for (std::string::iterator it = token.begin(); it != token.end(); ++it) {
-                    switch (*it) {
+                    switch (tolower(*it)) {
                         case 's':
                             multiplier = 0;
                             break;
@@ -228,7 +228,7 @@ namespace fl {
                             multiplier = 86400;
                             break;
                     }
-                } 
+                }
                 timer = timer * multiplier;
             }
 

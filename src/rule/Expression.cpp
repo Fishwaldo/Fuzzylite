@@ -30,7 +30,7 @@ namespace fl {
     }
 
     Proposition::Proposition()
-    : Expression(false), variable(NULL), term(NULL) {
+    : Expression(false), variable(NULL), term(NULL), timer(0) {
     }
 
     std::string Proposition::toString() const {

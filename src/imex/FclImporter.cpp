@@ -330,12 +330,12 @@ namespace fl {
         }
         std::string name = Op::trim(token.at(1));
         std::string className = name;
-        if (name == "MIN") className = Minimum().className();
-        else if (name == "PROD") className = AlgebraicProduct().className();
-        else if (name == "BDIF") className = BoundedDifference().className();
-        else if (name == "DPROD") className = DrasticProduct().className();
-        else if (name == "EPROD") className = EinsteinProduct().className();
-        else if (name == "HPROD") className = HamacherProduct().className();
+        if (fl::icasecmp(name, "MIN")) className = Minimum().className();
+        else if (fl::icasecmp(name,  "PROD")) className = AlgebraicProduct().className();
+        else if (fl::icasecmp(name,  "BDIF")) className = BoundedDifference().className();
+        else if (fl::icasecmp(name,  "DPROD")) className = DrasticProduct().className();
+        else if (fl::icasecmp(name,  "EPROD")) className = EinsteinProduct().className();
+        else if (fl::icasecmp(name,  "HPROD")) className = HamacherProduct().className();
 
         try {
             return FactoryManager::instance()->tnorm()->createInstance(className);
@@ -356,13 +356,13 @@ namespace fl {
         }
         std::string name = Op::trim(token.at(1));
         std::string className = name;
-        if (name == "MAX") className = Maximum().className();
-        else if (name == "ASUM") className = AlgebraicSum().className();
-        else if (name == "BSUM") className = BoundedSum().className();
-        else if (name == "NSUM") className = NormalizedSum().className();
-        else if (name == "DSUM") className = DrasticSum().className();
-        else if (name == "ESUM") className = EinsteinSum().className();
-        else if (name == "HSUM") className = HamacherSum().className();
+        if (fl::icasecmp(name,  "MAX")) className = Maximum().className();
+        else if (fl::icasecmp(name,  "ASUM")) className = AlgebraicSum().className();
+        else if (fl::icasecmp(name,  "BSUM")) className = BoundedSum().className();
+        else if (fl::icasecmp(name,  "NSUM")) className = NormalizedSum().className();
+        else if (fl::icasecmp(name,  "DSUM")) className = DrasticSum().className();
+        else if (fl::icasecmp(name,  "ESUM")) className = EinsteinSum().className();
+        else if (fl::icasecmp(name,  "HSUM")) className = HamacherSum().className();
 
         try {
             return FactoryManager::instance()->snorm()->createInstance(className);
@@ -475,13 +475,13 @@ namespace fl {
 
         std::string name = fl::Op::trim(token.at(1));
         std::string className = name;
-        if (name == "COG") className = Centroid().className();
-        if (name == "COA") className = Bisector().className();
-        if (name == "LM") className = SmallestOfMaximum().className();
-        if (name == "RM") className = LargestOfMaximum().className();
-        if (name == "MM") className = MeanOfMaximum().className();
-        if (name == "COGS") className = WeightedAverage().className();
-        if (name == "COGSS") className = WeightedSum().className();
+        if (fl::icasecmp(name,  "COG")) className = Centroid().className();
+        if (fl::icasecmp(name,  "COA")) className = Bisector().className();
+        if (fl::icasecmp(name,  "LM")) className = SmallestOfMaximum().className();
+        if (fl::icasecmp(name,  "RM")) className = LargestOfMaximum().className();
+        if (fl::icasecmp(name,  "MM")) className = MeanOfMaximum().className();
+        if (fl::icasecmp(name,  "COGS")) className = WeightedAverage().className();
+        if (fl::icasecmp(name,  "COGSS")) className = WeightedSum().className();
 
         try {
             return FactoryManager::instance()->defuzzifier()->createInstance(className);

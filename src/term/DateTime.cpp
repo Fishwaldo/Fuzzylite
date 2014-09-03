@@ -26,7 +26,7 @@
 namespace fl {
 
     DateTime::DateTime(const std::string& name, TIME_TYPE type)
-    : Term(name), type(type) {
+    : Term(name), _value(0), type(type) {
     }
 
     DateTime::~DateTime() {
@@ -50,12 +50,23 @@ namespace fl {
 
     void DateTime::configure(const std::string& parameters) {
         if (parameters.empty()) return;
+        if (fl::icasecmp("TIME_GREATERTHAN", parameters)) {
+        	this->type = TIME_GREATERTHAN;
+        } else if (fl::icasecmp("TIME_LESSTHAN", parameters)) {
+        	this->type = TIME_LESSTHAN;
+        } else if (fl::icasecmp("TIME_EQUALTO", parameters)) {
+        	this->type = TIME_EQUALTO;
+        } else {
+            std::ostringstream ex;
+            ex << "[configuration error] term <" << className() << ">"
+                    << " requires a Valid parameter";
+            throw fl::Exception(ex.str(), FL_AT);
+        }
         //setValue(Op::toScalar(parameters));
     }
 
     scalar DateTime::membership(scalar x) const {
-        (void) x;
-        FL_DBG("Membership: " << Op::str(x) << " Against: " << Op::str(this->_value));
+        //FL_DBG("Membership: " << Op::str(x) << " Against: " << Op::str(this->_value));
         switch (this->type) {
         	case TIME_GREATERTHAN:
         		return (x > this->_value);

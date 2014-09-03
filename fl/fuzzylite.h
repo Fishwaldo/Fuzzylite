@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   fuzzylite.h
  * Author: jcrada
  *
@@ -77,7 +77,7 @@ namespace fl {
 #ifdef FL_WINDOWS
 #define FL_EXPORT __declspec(dllexport)
 #else
-#define FL_EXPORT 
+#define FL_EXPORT
 #endif
 
 #ifdef FL_WINDOWS
@@ -103,7 +103,7 @@ namespace fl {
 #pragma warning(disable:4127) //Ignore conditional expression constant of FL_DBG and alike
 
 #pragma warning(disable:4706) //Ignore assignments within conditional expressions in Tsukamoto.
-#else 
+#else
 #endif
 
 namespace fl {
@@ -140,6 +140,9 @@ namespace fl {
         static bool logging();
         static void setLogging(bool logging);
     };
+
+    bool icasecmp(const std::string& l, const std::string& r);
+    std::string toLower(std::string word);
 }
 
 

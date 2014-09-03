@@ -252,7 +252,7 @@ fl::Engine* engine = new fl::Engine("simple-dimmer");
  engine->addOutputVariable(power1);
  
  fl::RuleBlock* ruleblock = new fl::RuleBlock;
- ruleblock->addRule(fl::Rule::parse("if Ambient1 is DARK and Ambient is Now(2:27pm) then Power is very HIGH", engine));
+ ruleblock->addRule(fl::Rule::parse("if Ambient1 is DARK and Ambient is Now(2:27pm) then Power is very HiGh", engine));
  ruleblock->addRule(fl::Rule::parse("if Ambient is DARK then Power is HIGH", engine));
  ruleblock->addRule(fl::Rule::parse("if Ambient is MEDIUM then Power is MEDIUM", engine));
  ruleblock->addRule(fl::Rule::parse("if Ambient is BRIGHT then in 5m set Power is LOW", engine));

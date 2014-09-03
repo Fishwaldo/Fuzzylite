@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   FisExporter.cpp
  * Author: jcrada
  *
@@ -264,12 +264,12 @@ namespace fl {
                 }
                 for (std::size_t ixHedge = 0; ixHedge < hedges.size(); ++ixHedge) {
                     Hedge* hedge = hedges.at(ixHedge);
-                    if (hedge->name() == Not().name()) negated *= -1;
-                    else if (hedge->name() == Extremely().name()) plusHedge += 0.3;
-                    else if (hedge->name() == Very().name()) plusHedge += 0.2;
-                    else if (hedge->name() == Somewhat().name()) plusHedge += 0.05;
-                    else if (hedge->name() == Seldom().name()) plusHedge += 0.01;
-                    else if (hedge->name() == Any().name()) plusHedge += 0.99;
+                    if (fl::icasecmp(hedge->name(), Not().name())) negated *= -1;
+                    else if (fl::icasecmp(hedge->name(), Extremely().name())) plusHedge += 0.3;
+                    else if (fl::icasecmp(hedge->name(), Very().name())) plusHedge += 0.2;
+                    else if (fl::icasecmp(hedge->name(), Somewhat().name())) plusHedge += 0.05;
+                    else if (fl::icasecmp(hedge->name(), Seldom().name())) plusHedge += 0.01;
+                    else if (fl::icasecmp(hedge->name(), Any().name())) plusHedge += 0.99;
                     else plusHedge = fl::nan; //Unreconized hedge combination (e.g. Any)
                 }
 
@@ -289,56 +289,56 @@ namespace fl {
     std::string FisExporter::toString(const TNorm * tnorm) const {
         if (not tnorm) return "";
         std::string name = tnorm->className();
-        if (name == Minimum().className()) return "min";
-        if (name == AlgebraicProduct().className()) return "prod";
-        if (name == BoundedDifference().className()) return "bounded_difference";
-        if (name == DrasticProduct().className()) return "drastic_product";
-        if (name == EinsteinProduct().className()) return "einstein_product";
-        if (name == HamacherProduct().className()) return "hamacher_product";
+        if (fl::icasecmp(name,  Minimum().className())) return "min";
+        if (fl::icasecmp(name,  AlgebraicProduct().className())) return "prod";
+        if (fl::icasecmp(name,  BoundedDifference().className())) return "bounded_difference";
+        if (fl::icasecmp(name,  DrasticProduct().className())) return "drastic_product";
+        if (fl::icasecmp(name,  EinsteinProduct().className())) return "einstein_product";
+        if (fl::icasecmp(name,  HamacherProduct().className())) return "hamacher_product";
         return tnorm->className();
     }
 
     std::string FisExporter::toString(const SNorm * snorm) const {
         if (not snorm) return "";
         std::string name = snorm->className();
-        if (name == Maximum().className()) return "max";
-        if (name == AlgebraicSum().className()) return "sum";
-        if (name == BoundedSum().className()) return "bounded_sum";
-        if (name == NormalizedSum().className()) return "normalized_sum";
-        if (name == DrasticSum().className()) return "drastic_sum";
-        if (name == EinsteinSum().className()) return "einstein_sum";
-        if (name == HamacherSum().className()) return "hamacher_sum";
+        if (fl::icasecmp(name,  Maximum().className())) return "max";
+        if (fl::icasecmp(name,  AlgebraicSum().className())) return "sum";
+        if (fl::icasecmp(name,  BoundedSum().className())) return "bounded_sum";
+        if (fl::icasecmp(name,  NormalizedSum().className())) return "normalized_sum";
+        if (fl::icasecmp(name,  DrasticSum().className())) return "drastic_sum";
+        if (fl::icasecmp(name,  EinsteinSum().className())) return "einstein_sum";
+        if (fl::icasecmp(name,  HamacherSum().className())) return "hamacher_sum";
         return snorm->className();
     }
 
     std::string FisExporter::toString(const Defuzzifier * defuzzifier) const {
         if (not defuzzifier) return "";
-        if (defuzzifier->className() == Centroid().className()) return "centroid";
-        if (defuzzifier->className() == Bisector().className()) return "bisector";
-        if (defuzzifier->className() == LargestOfMaximum().className()) return "lom";
-        if (defuzzifier->className() == MeanOfMaximum().className()) return "mom";
-        if (defuzzifier->className() == SmallestOfMaximum().className()) return "som";
-        if (defuzzifier->className() == WeightedAverage().className()) return "wtaver";
-        if (defuzzifier->className() == WeightedSum().className()) return "wtsum";
+        if (fl::icasecmp(defuzzifier->className(), Centroid().className())) return "centroid";
+        if (fl::icasecmp(defuzzifier->className(), Bisector().className())) return "bisector";
+        if (fl::icasecmp(defuzzifier->className(), LargestOfMaximum().className())) return "lom";
+        if (fl::icasecmp(defuzzifier->className(), MeanOfMaximum().className())) return "mom";
+        if (fl::icasecmp(defuzzifier->className(), SmallestOfMaximum().className())) return "som";
+        if (fl::icasecmp(defuzzifier->className(), WeightedAverage().className())) return "wtaver";
+        if (fl::icasecmp(defuzzifier->className(), WeightedSum().className())) return "wtsum";
         return defuzzifier->className();
     }
 
     std::string FisExporter::toString(const Term * term) const {
         std::ostringstream ss;
-        if (term->className() == Bell().className()) {
+        if (fl::icasecmp(term->className(), Bell().className())) {
             const Bell* x = dynamic_cast<const Bell*> (term);
             ss << "'gbellmf',[" << fl::Op::join(3, " ",
                     x->getWidth(), x->getSlope(), x->getCenter()) << "]";
             return ss.str();
         }
 
-        if (term->className() == Constant().className()) {
+        if (fl::icasecmp(term->className(),  Constant().className())) {
             const Constant* x = dynamic_cast<const Constant*> (term);
             ss << "'constant',[" << fl::Op::str(x->getValue()) << "]";
             return ss.str();
         }
 
-        if (term->className() == Discrete().className()) {
+        if (fl::icasecmp(term->className(),  Discrete().className())) {
             ss << "'discretemf',[";
             const Discrete* x = dynamic_cast<const Discrete*> (term);
             for (std::size_t i = 0; i < x->x.size(); ++i) {
@@ -349,20 +349,20 @@ namespace fl {
             return ss.str();
         }
 
-        if (term->className() == Function().className()) {
+        if (fl::icasecmp(term->className(),  Function().className())) {
             const Function* x = dynamic_cast<const Function*> (term);
             ss << "'function',[" << x->getFormula() << "]";
             return ss.str();
         }
 
-        if (term->className() == Gaussian().className()) {
+        if (fl::icasecmp(term->className(),  Gaussian().className())) {
             const Gaussian* x = dynamic_cast<const Gaussian*> (term);
             ss << "'gaussmf',[" << fl::Op::join(2, " ",
                     x->getStandardDeviation(), x->getMean()) << "]";
             return ss.str();
         }
 
-        if (term->className() == GaussianProduct().className()) {
+        if (fl::icasecmp(term->className(),  GaussianProduct().className())) {
             const GaussianProduct* x = dynamic_cast<const GaussianProduct*> (term);
             ss << "'gauss2mf',[" << fl::Op::join(4, " ",
                     x->getStandardDeviationA(), x->getMeanA(),
@@ -370,14 +370,14 @@ namespace fl {
             return ss.str();
         }
 
-        if (term->className() == Linear().className()) {
+        if (fl::icasecmp(term->className(),  Linear().className())) {
             const Linear* x = dynamic_cast<const Linear*> (term);
             ss << "'linear',[" << fl::Op::join<scalar>(x->coefficients, " ") << "]";
             return ss.str();
         }
 
 
-        if (term->className() == PiShape().className()) {
+        if (fl::icasecmp(term->className(),  PiShape().className())) {
             const PiShape* x = dynamic_cast<const PiShape*> (term);
             ss << "'pimf',[" << fl::Op::join(4, " ",
                     x->getBottomLeft(), x->getTopLeft(),
@@ -385,21 +385,21 @@ namespace fl {
             return ss.str();
         }
 
-        if (term->className() == Ramp().className()) {
+        if (fl::icasecmp(term->className(),  Ramp().className())) {
             const Ramp* x = dynamic_cast<const Ramp*> (term);
             ss << "'rampmf',[" << fl::Op::join(2, " ",
                     x->getStart(), x->getEnd()) << "]";
             return ss.str();
         }
 
-        if (term->className() == Rectangle().className()) {
+        if (fl::icasecmp(term->className(),  Rectangle().className())) {
             const Rectangle* x = dynamic_cast<const Rectangle*> (term);
             ss << "'rectmf',[" << fl::Op::join(2, " ",
                     x->getStart(), x->getEnd()) << "]";
             return ss.str();
         }
 
-        if (term->className() == SigmoidDifference().className()) {
+        if (fl::icasecmp(term->className(),  SigmoidDifference().className())) {
             const SigmoidDifference* x = dynamic_cast<const SigmoidDifference*> (term);
             ss << "'dsigmf',[" << fl::Op::join(4, " ",
                     x->getRising(), x->getLeft(),
@@ -407,14 +407,14 @@ namespace fl {
             return ss.str();
         }
 
-        if (term->className() == Sigmoid().className()) {
+        if (fl::icasecmp(term->className(),  Sigmoid().className())) {
             const Sigmoid* x = dynamic_cast<const Sigmoid*> (term);
             ss << "'sigmf',[" << fl::Op::join(2, " ",
                     x->getSlope(), x->getInflection()) << "]";
             return ss.str();
         }
 
-        if (term->className() == SigmoidProduct().className()) {
+        if (fl::icasecmp(term->className(),  SigmoidProduct().className())) {
             const SigmoidProduct* x = dynamic_cast<const SigmoidProduct*> (term);
             ss << "'psigmf',[" << fl::Op::join(4, " ",
                     x->getRising(), x->getLeft(),
@@ -422,28 +422,28 @@ namespace fl {
             return ss.str();
         }
 
-        if (term->className() == SShape().className()) {
+        if (fl::icasecmp(term->className(),  SShape().className())) {
             const SShape* x = dynamic_cast<const SShape*> (term);
             ss << "'smf',[" << fl::Op::join(2, " ",
                     x->getStart(), x->getEnd()) << "]";
             return ss.str();
         }
 
-        if (term->className() == Trapezoid().className()) {
+        if (fl::icasecmp(term->className(),  Trapezoid().className())) {
             const Trapezoid* x = dynamic_cast<const Trapezoid*> (term);
             ss << "'trapmf',[" << fl::Op::join(4, " ",
                     x->getA(), x->getB(), x->getC(), x->getD()) << "]";
             return ss.str();
         }
 
-        if (term->className() == Triangle().className()) {
+        if (fl::icasecmp(term->className(),  Triangle().className())) {
             const Triangle* x = dynamic_cast<const Triangle*> (term);
             ss << "'trimf',[" << fl::Op::join(3, " ",
                     x->getA(), x->getB(), x->getC()) << "]";
             return ss.str();
         }
 
-        if (term->className() == ZShape().className()) {
+        if (fl::icasecmp(term->className(),  ZShape().className())) {
             const ZShape* x = dynamic_cast<const ZShape*> (term);
             ss << "'zmf',[" << fl::Op::join(2, " ",
                     x->getStart(), x->getEnd()) << "]";

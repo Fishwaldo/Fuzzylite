@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   Factory.cpp
  * Author: jcrada
  *
@@ -44,12 +44,12 @@ namespace fl {
 
     template <typename T>
     void Factory<T>::registerClass(const std::string& key, Creator creator) {
-        this->map[key] = creator;
+        this->map[fl::toLower(key)] = creator;
     }
 
     template <typename T>
     void Factory<T>::deregisterClass(const std::string& key) {
-        typename std::map<std::string, Creator>::iterator it = this->map.find(key);
+        typename std::map<std::string, Creator>::iterator it = this->map.find(fl::toLower(key));
         if (it != this->map.end()) {
             this->map.erase(it);
         }
@@ -57,7 +57,7 @@ namespace fl {
 
     template <typename T>
     bool Factory<T>::hasRegisteredClass(const std::string& key) const {
-        typename std::map<std::string, Creator>::const_iterator it = this->map.find(key);
+        typename std::map<std::string, Creator>::const_iterator it = this->map.find(fl::toLower(key));
         return (it != this->map.end());
     }
 
@@ -75,7 +75,7 @@ namespace fl {
     template <typename T>
     T Factory<T>::createInstance(const std::string& key) const {
         if (key.empty()) return NULL;
-        typename std::map<std::string, Creator>::const_iterator it = this->map.find(key);
+        typename std::map<std::string, Creator>::const_iterator it = this->map.find(fl::toLower(key));
         if (it != this->map.end()) {
             if (it->second) {
                 return it->second();

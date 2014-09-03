@@ -159,7 +159,7 @@ namespace fl {
 
     Term* Variable::getTerm(const std::string& name) const {
         for (std::size_t i = 0; i < _terms.size(); ++i) {
-            if (_terms.at(i)->getName() == name) {
+            if (fl::icasecmp(_terms.at(i)->getName(), name)) {
                 return _terms.at(i);
             }
         }

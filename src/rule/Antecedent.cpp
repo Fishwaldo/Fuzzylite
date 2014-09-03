@@ -65,7 +65,7 @@ namespace fl {
             }
             bool isAny = false;
             for (std::size_t i = 0; i < proposition->hedges.size(); ++i) {
-                isAny |= proposition->hedges.at(i)->name() == Any().name();
+                isAny |= fl::icasecmp(proposition->hedges.at(i)->name(), Any().name());
                 if (isAny) return 1.0;
             }
             InputVariable* inputVariable = dynamic_cast<InputVariable*> (proposition->variable);
@@ -83,12 +83,12 @@ namespace fl {
             ex << "[syntax error] left and right operands must exist";
             throw fl::Exception(ex.str(), FL_AT);
         }
-        if (fuzzyOperator->name == Rule::FL_AND)
+        if (fl::icasecmp(fuzzyOperator->name, Rule::FL_AND))
             return conjunction->compute(
                 this->activationDegree(conjunction, disjunction, fuzzyOperator->left),
                 this->activationDegree(conjunction, disjunction, fuzzyOperator->right));
 
-        if (fuzzyOperator->name == Rule::FL_OR)
+        if (fl::icasecmp(fuzzyOperator->name, Rule::FL_OR))
             return disjunction->compute(
                 this->activationDegree(conjunction, disjunction, fuzzyOperator->left),
                 this->activationDegree(conjunction, disjunction, fuzzyOperator->right));
@@ -111,13 +111,13 @@ namespace fl {
          3) After a hedge comes a hedge or a term
          4) After a term comes a variable or an operator
          */
-        
+
         Function function;
-        
+
         std::string postfix = function.toPostfix(antecedent);
         std::stringstream tokenizer(postfix);
         std::string token;
-        
+
         enum FSM {
             S_VARIABLE = 1, S_IS = 2, S_HEDGE = 4, S_TERM = 8, S_AND_OR = 16, S_ARGS = 32
         };
@@ -137,7 +137,7 @@ namespace fl {
             }
 
             if (state bitand S_IS) {
-                if (token == Rule::FL_IS) {
+                if (fl::icasecmp(token, Rule::FL_IS)) {
                     state = S_HEDGE bitor S_TERM;
                     continue;
                 }
@@ -148,12 +148,19 @@ namespace fl {
                 if (engine->hasHedge(token)){
                     hedge = engine->getHedge(token);
                 }else{
-                    std::vector<std::string> hedges = FactoryManager::instance()->hedge()->available();
+                	if (FactoryManager::instance()->hedge()->hasRegisteredClass(token)) {
+                        hedge = FactoryManager::instance()->hedge()->createInstance(token);
+                        //TODO: find a better way, eventually.
+                        const_cast<Engine*>(engine)->addHedge(hedge);
+                	}
+#if 0
+                	std::vector<std::string> hedges = FactoryManager::instance()->hedge()->available();
                     if (std::find(hedges.begin(), hedges.end(), token) != hedges.end()){
                         hedge = FactoryManager::instance()->hedge()->createInstance(token);
                         //TODO: find a better way, eventually.
                         const_cast<Engine*>(engine)->addHedge(hedge);
                     }
+#endif
                 }
                 if (hedge) {
                     proposition->hedges.push_back(hedge);
@@ -184,7 +191,7 @@ namespace fl {
             	continue;
             }
             if (state bitand S_AND_OR) {
-                if (token == Rule::FL_AND or token == Rule::FL_OR) {
+                if (fl::icasecmp(token, Rule::FL_AND) or fl::icasecmp(token, Rule::FL_OR)) {
                     if (expressionStack.size() < 2) {
                         std::ostringstream ex;
                         ex << "[syntax error] logical operator <" << token << "> expects two operands,"

@@ -13,10 +13,10 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   CppExporter.cpp
  * Author: jcrada
- * 
+ *
  * Created on 1 January 2013, 2:41 PM
  */
 
@@ -153,7 +153,7 @@ namespace fl {
     std::string CppExporter::toString(const Term* term) const {
         if (not term) return "NULL";
 
-        if (term->className() == Discrete().className()) {
+        if (fl::icasecmp(term->className(), Discrete().className())) {
             const Discrete* discrete = dynamic_cast<const Discrete*> (term);
             std::ostringstream ss;
             ss << "fl::" << term->className() << "::create(\"" << term->getName() << "\", ";
@@ -167,7 +167,7 @@ namespace fl {
             return ss.str();
         }
 
-        if (term->className() == Function().className()) {
+        if (fl::icasecmp(term->className(), Function().className())) {
             const Function* function = dynamic_cast<const Function*> (term);
             std::ostringstream ss;
             ss << "fl::" << term->className() << "::create(\"" << term->getName() << "\", "
@@ -195,12 +195,12 @@ namespace fl {
     }
 
     std::string CppExporter::toString(const Hedge * hedge) const {
-        if (hedge->name() == Any().name()) return "new fl::Any";
-        if (hedge->name() == Extremely().name()) return "new fl::Extremely";
-        if (hedge->name() == Not().name()) return "new fl::Not";
-        if (hedge->name() == Seldom().name()) return "new fl::Seldom";
-        if (hedge->name() == Somewhat().name()) return "new fl::Somewhat";
-        if (hedge->name() == Very().name()) return "new fl::Very";
+        if (fl::icasecmp(hedge->name(), Any().name())) return "new fl::Any";
+        if (fl::icasecmp(hedge->name(), Extremely().name())) return "new fl::Extremely";
+        if (fl::icasecmp(hedge->name(), Not().name())) return "new fl::Not";
+        if (fl::icasecmp(hedge->name(), Seldom().name())) return "new fl::Seldom";
+        if (fl::icasecmp(hedge->name(), Somewhat().name())) return "new fl::Somewhat";
+        if (fl::icasecmp(hedge->name(), Very().name())) return "new fl::Very";
         return hedge->name();
     }
 

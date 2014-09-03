@@ -43,7 +43,9 @@
 
 namespace fl {
 
-    Consequent::Consequent() {
+    Consequent::Consequent():
+    	m_timer(0)
+    {
     }
 
     Consequent::~Consequent() {
@@ -125,12 +127,19 @@ namespace fl {
                 if (engine->hasHedge(token)) {
                     hedge = engine->getHedge(token);
                 } else {
+                	if (FactoryManager::instance()->hedge()->hasRegisteredClass(token)) {
+                        hedge = FactoryManager::instance()->hedge()->createInstance(token);
+                        //TODO: find a better way, eventually.
+                        const_cast<Engine*>(engine)->addHedge(hedge);
+                	}
+#if 0
                     std::vector<std::string> hedges = FactoryManager::instance()->hedge()->available();
                     if (std::find(hedges.begin(), hedges.end(), token) != hedges.end()) {
                         hedge = FactoryManager::instance()->hedge()->createInstance(token);
                         //TODO: find a better way, eventually.
                         const_cast<Engine*> (engine)->addHedge(hedge);
                     }
+#endif
                 }
                 if (hedge) {
                     proposition->hedges.push_back(hedge);
@@ -189,7 +198,7 @@ namespace fl {
     std::string Consequent::toString() const {
         std::stringstream ss;
         if (m_timer > 0)
-            ss << "in " << m_timer << " set "; 
+            ss << "in " << m_timer << " set ";
         for (std::size_t i = 0; i < _conclusions.size(); ++i) {
             ss << _conclusions.at(i)->toString();
             if (i + 1 < _conclusions.size())

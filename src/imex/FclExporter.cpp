@@ -149,37 +149,37 @@ namespace fl {
     std::string FclExporter::toString(const TNorm * tnorm) const {
         if (not tnorm) return "";
         std::string name = tnorm->className();
-        if (name == Minimum().className()) return "MIN";
-        if (name == AlgebraicProduct().className()) return "PROD";
-        if (name == BoundedDifference().className()) return "BDIF";
-        if (name == DrasticProduct().className()) return "DPROD";
-        if (name == EinsteinProduct().className()) return "EPROD";
-        if (name == HamacherProduct().className()) return "HPROD";
+        if (fl::icasecmp(name, Minimum().className())) return "MIN";
+        if (fl::icasecmp(name,  AlgebraicProduct().className())) return "PROD";
+        if (fl::icasecmp(name,  BoundedDifference().className())) return "BDIF";
+        if (fl::icasecmp(name,  DrasticProduct().className())) return "DPROD";
+        if (fl::icasecmp(name,  EinsteinProduct().className())) return "EPROD";
+        if (fl::icasecmp(name,  HamacherProduct().className())) return "HPROD";
         return tnorm->className();
     }
 
     std::string FclExporter::toString(const SNorm * snorm) const {
         if (not snorm) return "";
         std::string name = snorm->className();
-        if (name == Maximum().className()) return "MAX";
-        if (name == AlgebraicSum().className()) return "ASUM";
-        if (name == NormalizedSum().className()) return "NSUM";
-        if (name == BoundedSum().className()) return "BSUM";
-        if (name == DrasticSum().className()) return "DSUM";
-        if (name == EinsteinSum().className()) return "ESUM";
-        if (name == HamacherSum().className()) return "HSUM";
+        if (fl::icasecmp(name,  Maximum().className())) return "MAX";
+        if (fl::icasecmp(name,  AlgebraicSum().className())) return "ASUM";
+        if (fl::icasecmp(name,  NormalizedSum().className())) return "NSUM";
+        if (fl::icasecmp(name,  BoundedSum().className())) return "BSUM";
+        if (fl::icasecmp(name,  DrasticSum().className())) return "DSUM";
+        if (fl::icasecmp(name,  EinsteinSum().className())) return "ESUM";
+        if (fl::icasecmp(name,  HamacherSum().className())) return "HSUM";
         return snorm->className();
     }
 
     std::string FclExporter::toString(const Defuzzifier* defuzzifier) const {
         if (not defuzzifier) return "";
-        if (defuzzifier->className() == Centroid().className()) return "COG";
-        if (defuzzifier->className() == Bisector().className()) return "COA";
-        if (defuzzifier->className() == SmallestOfMaximum().className()) return "LM";
-        if (defuzzifier->className() == LargestOfMaximum().className()) return "RM";
-        if (defuzzifier->className() == MeanOfMaximum().className()) return "MM";
-        if (defuzzifier->className() == WeightedAverage().className()) return "COGS";
-        if (defuzzifier->className() == WeightedSum().className()) return "COGSS";
+        if (fl::icasecmp(defuzzifier->className(), Centroid().className())) return "COG";
+        if (fl::icasecmp(defuzzifier->className(), Bisector().className())) return "COA";
+        if (fl::icasecmp(defuzzifier->className(), SmallestOfMaximum().className())) return "LM";
+        if (fl::icasecmp(defuzzifier->className(), LargestOfMaximum().className())) return "RM";
+        if (fl::icasecmp(defuzzifier->className(), MeanOfMaximum().className())) return "MM";
+        if (fl::icasecmp(defuzzifier->className(), WeightedAverage().className())) return "COGS";
+        if (fl::icasecmp(defuzzifier->className(), WeightedSum().className())) return "COGSS";
         return defuzzifier->className();
     }
 
