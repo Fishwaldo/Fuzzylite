@@ -24,11 +24,11 @@ if (APPLE)
 endif()
 
 
-set(FL_VERSION 4.0)
+set(FL_VERSION 4.1)
 add_definitions(-DFL_VERSION="${FL_VERSION}")
 
-set(FL_DATE "1401")
-add_definitions(-DFL_DATE="1401")
+set(FL_DATE "0309")
+add_definitions(-DFL_DATE="0309")
 
 option(FL_USE_FLOAT "Use fl::scalar as float" OFF)
 option(FL_DEBUG "Enable additional debugging information" OFF)

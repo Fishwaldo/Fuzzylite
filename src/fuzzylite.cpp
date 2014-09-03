@@ -33,7 +33,7 @@ namespace fl {
     bool fuzzylite::_logging = true;
 
     std::string fuzzylite::name() {
-        return "fuzzylite";
+        return "fuzzyliteNG";
     }
 
     std::string fuzzylite::fullname(){
@@ -49,7 +49,7 @@ namespace fl {
     }
 
     std::string fuzzylite::author() {
-        return "Juan Rada-Vilela";
+        return "Justin Hammond (Forked from fuzzylite by Juan Rada-Vilela)";
     }
 
     std::string fuzzylite::date() {
