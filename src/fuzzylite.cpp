@@ -31,6 +31,8 @@ namespace fl {
     scalar fuzzylite::_macheps = 1e-5;
     bool fuzzylite::_debug = FL_DEBUG;
     bool fuzzylite::_logging = true;
+    Log::Logger *fuzzylite::logger = NULL;
+    //Log::Logger *fuzzylite::logger = new Log::Logger("FuzzyLite");
 
     std::string fuzzylite::name() {
         return "fuzzyliteNG";
@@ -89,6 +91,8 @@ namespace fl {
     }
 
     void fuzzylite::setDebug(bool debug) {
+    	if (debug && !fl::fuzzylite::logger)
+    		fl::fuzzylite::logger = new Log::Logger("FuzzyLite");
         _debug = debug;
     }
 
@@ -113,6 +117,9 @@ namespace fl {
     }
 
     void fuzzylite::setLogging(bool logging) {
+    	if (logging && !fl::fuzzylite::logger)
+    		fl::fuzzylite::logger = new Log::Logger("FuzzyLite");
+
         _logging = logging;
     }
 

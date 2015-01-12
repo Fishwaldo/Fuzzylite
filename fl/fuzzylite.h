@@ -27,6 +27,7 @@
 #include <iostream>
 #include <sstream>
 #include <limits>
+#include "LoggerCpp/LoggerCpp.h"
 
 #ifndef FL_VERSION
 #define FL_VERSION "?"
@@ -42,13 +43,13 @@
 
 namespace fl {
 #ifdef FL_USE_FLOAT
-    typedef float scalar;
+	typedef float scalar;
 #else
-    typedef double scalar;
+	typedef double scalar;
 #endif
 
-    static const scalar nan = std::numeric_limits<scalar>::quiet_NaN();
-    static const scalar inf = std::numeric_limits<scalar>::infinity();
+	static const scalar nan = std::numeric_limits<scalar>::quiet_NaN();
+	static const scalar inf = std::numeric_limits<scalar>::infinity();
 }
 
 #define FL__FILE__ std::string(__FILE__).substr(std::string(FL_BUILD_PATH).size())
@@ -58,8 +59,8 @@ namespace fl {
 #define FL_AT FL__FILE__, __LINE__, __FUNCTION__
 
 
-#define FL_LOG(message) if (fl::fuzzylite::logging()){std::cout << FL_LOG_PREFIX << message << std::endl;}
-#define FL_LOGP(message) if (fl::fuzzylite::logging()){std::cout << message << std::endl;}
+#define FL_LOG(message) if (fl::fuzzylite::logging()){fl::fuzzylite::logger->info() << FL_LOG_PREFIX << message /*<< std::endl */;}
+#define FL_LOGP(message) if (fl::fuzzylite::logging()){fl::fuzzylite::logger->info() << message /* << std::endl */;}
 
 #ifndef FL_DEBUG
 #define FL_DEBUG false
@@ -69,9 +70,9 @@ namespace fl {
 #define FL_END_DEBUG_BLOCK }
 
 #define FL_DBG(message) FL_BEGIN_DEBUG_BLOCK \
-        std::cout << FL__FILE__ << "::" << __FUNCTION__ << "[" << __LINE__ << "]:" \
-                << message << std::endl;\
-        FL_END_DEBUG_BLOCK
+		fl::fuzzylite::logger->debug() << FL__FILE__ << "::" << __FUNCTION__ << "[" << __LINE__ << "]:" \
+		<< message /*<< std::endl*/;\
+		FL_END_DEBUG_BLOCK
 
 //class FL_EXPORT is require to build DLLs in Windows.
 #ifdef FL_WINDOWS
@@ -108,43 +109,44 @@ namespace fl {
 
 namespace fl {
 
-    class FL_EXPORT fuzzylite {
-    protected:
-        static int _decimals;
-        static scalar _macheps;
-        static bool _debug;
-        static bool _logging;
+	class FL_EXPORT fuzzylite {
+		protected:
+			static int _decimals;
+			static scalar _macheps;
+			static bool _debug;
+			static bool _logging;
 
-    public:
-        static std::string name();
-        static std::string fullname();
-        static std::string version();
-        static std::string longVersion();
-        static std::string author();
 
-        static std::string date();
-        static std::string platform();
-        static std::string configuration();
+		public:
+			static Log::Logger *logger;
+			static std::string name();
+			static std::string fullname();
+			static std::string version();
+			static std::string longVersion();
+			static std::string author();
 
-        static std::string floatingPoint();
+			static std::string date();
+			static std::string platform();
+			static std::string configuration();
 
-        static bool debug();
-        static void setDebug(bool debug);
+			static std::string floatingPoint();
 
-        static int decimals();
-        static void setDecimals(int decimals);
+			static bool debug();
+			static void setDebug(bool debug);
 
-        static scalar macheps();
-        static void setMachEps(scalar macheps);
+			static int decimals();
+			static void setDecimals(int decimals);
 
-        static bool logging();
-        static void setLogging(bool logging);
-    };
+			static scalar macheps();
+			static void setMachEps(scalar macheps);
 
-    bool icasecmp(const std::string& l, const std::string& r);
-    std::string toLower(std::string word);
+			static bool logging();
+			static void setLogging(bool logging);
+	};
+
+	bool icasecmp(const std::string& l, const std::string& r);
+	std::string toLower(std::string word);
 }
-
 
 #endif	/* FL_FUZZYLITE_H */
 

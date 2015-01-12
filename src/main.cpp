@@ -22,14 +22,22 @@
 
 #include "fl/Headers.h"
 
-#include <typeinfo> 
+#include <typeinfo>
 #include <iomanip>
 #include <cstdlib>
 #include <signal.h>
 #include <fstream>
 #include <sys/time.h>
+#include "LoggerCpp/LoggerCpp.h"
 
 using namespace fl;
+
+
+
+
+
+
+
 
 /*
 void baz(){
@@ -184,9 +192,108 @@ void exportAllExamples(const std::string& from, const std::string& to) {
     }
 }
 
+class TestLog : public Log::Output {
+	public:
+	    explicit TestLog() {
+	    };
+	    virtual ~TestLog() {
+
+	    }
+	    virtual void output(const Log::Channel::Ptr& aChannelPtr, const Log::Log& aLog) const {
+	    	(void)aChannelPtr;
+	    	std::cout << "test: " << aLog.getStream().str() << std::endl;
+	    }
+};
+
+
 int main(int argc, char** argv) {
     (void) argc;
     (void) argv;
+
+    fl::fuzzylite::setLogging(true);
+    fl::fuzzylite::setDebug(true);
+
+    Log::Config::Vector configList;
+#if 0
+    Log::Config::addOutput(configList, "OutputConsole");
+    Log::Config::addOutput(configList, "OutputFile");
+    Log::Config::setOption(configList, "filename",          "log.txt");
+    Log::Config::setOption(configList, "filename_old",      "log.old.txt");
+    Log::Config::setOption(configList, "max_startup_size",  "0");
+    Log::Config::setOption(configList, "max_size",          "10000");
+#endif
+#ifdef WIN32
+    Log::Config::addOutput(configList, "OutputDebug");
+#endif
+
+    // Create a Logger object, using a "Main.Example" Channel
+    Log::Logger logger22("Main.Example");
+
+
+    logger22.warning() << "NO logs before configure()";
+
+    try
+    {
+        // Configure the Log Manager (create the Output objects)
+        //Log::Manager::configure(configList);
+    	Log::Manager::setCustomLogger(new TestLog());
+    }
+    catch (std::exception& e)
+    {
+        std::cerr << e.what();
+    }
+
+    // Test outputs of various kind of variables, and some common stream manipulations.
+    std::string     str("string");
+    unsigned int    ui  = 123;
+    double          dbl = -0.023f;
+    logger22.debug() << "Variables ; '" << str << "', '" << ui << "', '" << dbl << "'";
+    logger22.debug() << "Hexa = " << std::hex << 0x75af0 << " test";
+    logger22.debug() << "Deci = " << std::right << std::setfill('0') << std::setw(8) << 76035 << " test";
+    logger22.debug() << "sizeof(logger)=" << sizeof(logger22);
+
+    // Test outputs of various severity Level
+    logger22.debug()  << "Debug.";
+    logger22.info()   << "Info.";
+    logger22.notice() << "Notice.";
+    logger22.warning()<< "Warning.";
+    logger22.error()  << "Error.";
+    logger22.critic() << "Critic.";
+
+    // Modify the output Level of the underlying Channel, and test various severity Level again
+    logger22.setLevel(Log::Log::eWarning);
+    logger22.debug()  << "NO Debug.";     // NO more debug logs
+    logger22.info()   << "NO Info.";      // NO more info logs
+    logger22.notice() << "NO Notice.";    // NO more notice logs
+    logger22.warning()<< "Warning.";
+    logger22.error()  << "Error.";
+    logger22.critic() << "Critic.";
+
+    // Reset Level of the "Main.example" channel by its name
+    Log::Manager::get("Main.Example")->setLevel(Log::Log::eDebug);
+
+    // Create other loggers, sharing the "Main.Example" Channel, and creating a new one
+    Log::Logger logger2("Main.Example");
+    Log::Logger logger3("Main.Other");
+    logger22.debug() << "First logger to the Channel";
+    logger2.debug() << "Second logger to the Channel";
+    logger3.debug() << "Third logger, other Channel";
+    // Modify the Level of the "Main.example" channel by its name
+    Log::Manager::get("Main.Example")->setLevel(Log::Log::eInfo);
+    logger22.debug() << "first logger inhibited";         // NO more debug logs for this logger
+    logger2.debug() << "second logger also disabled";   // NO more debug logs (sharing the same underlying channel)
+    logger3.debug() << "third logger still active";
+    // Reset the Level of the "Main.example" channel by its name
+    Log::Manager::get("Main.Example")->setLevel(Log::Log::eDebug);
+    logger22.debug() << "first logger re-activated";
+    logger2.debug() << "second logger also re-activated";
+    logger3.debug() << "third logger always active";
+
+
+
+
+
+
     std::set_terminate(fl::Exception::terminate);
     std::set_unexpected(fl::Exception::terminate);
     signal(SIGSEGV, fl::Exception::signalHandler);
@@ -194,8 +301,7 @@ int main(int argc, char** argv) {
     signal(SIGILL, fl::Exception::signalHandler);
     signal(SIGSEGV, fl::Exception::signalHandler);
     signal(SIGFPE, fl::Exception::signalHandler);
-    fl::fuzzylite::setLogging(true);
-    fl::fuzzylite::setDebug(true);
+
 #ifdef FL_UNIX
     signal(SIGBUS, fl::Exception::signalHandler);
     signal(SIGPIPE, fl::Exception::signalHandler);
@@ -213,7 +319,7 @@ int main(int argc, char** argv) {
 //        return 0;
 //        return Console::main(argc, argv);
 fl::Engine* engine = new fl::Engine("simple-dimmer");
- 
+
  fl::InputVariable* ambient = new fl::InputVariable;
  ambient->setName("Ambient");
  ambient->setRange(0.000, 1.000);
@@ -250,7 +356,7 @@ fl::Engine* engine = new fl::Engine("simple-dimmer");
  power1->addTerm(new fl::Triangle("MEDIUM", 0.500, 1.500));
  power1->addTerm(new fl::Triangle("HIGH", 1.000, 2.000));
  engine->addOutputVariable(power1);
- 
+
  fl::RuleBlock* ruleblock = new fl::RuleBlock;
  ruleblock->addRule(fl::Rule::parse("if Ambient1 is DARK and Ambient is Now(2:27pm) then Power is very HiGh", engine));
  ruleblock->addRule(fl::Rule::parse("if Ambient is DARK then Power is HIGH", engine));
@@ -259,10 +365,10 @@ fl::Engine* engine = new fl::Engine("simple-dimmer");
  ruleblock->addRule(fl::Rule::parse("if Ambient is BRIGHT then in 533m set Power is LOW and Power1 is HIGH", engine));
 //# ruleblock->addRule(fl::Rule::parse("if Ambient is BRIGHT then in 5m Power is LOW", engine));
  engine->addRuleBlock(ruleblock);
- 
+
  //No Conjunction or Disjunction is needed
  engine->configure("AlgebraicProduct", "", "AlgebraicProduct", "AlgebraicSum", "Centroid");
-  
+
  std::string status;
  if (not engine->isReady(&status))
       throw fl::Exception("Engine not ready. "
@@ -283,18 +389,18 @@ fl::Engine* engine = new fl::Engine("simple-dimmer");
      fl::scalar light = ambient->getMinimum() + i * (ambient->range() / 50);
      ambient->setInputValue(light);
      engine->process();
-     FL_LOG("Ambient.input = " << fl::Op::str(light) << " -> " << 
-            "Power.output = " << fl::Op::str(power->defuzzify()) << 
-                      " Timer: " << power->getTimer() << 
-            " Power1.output = " << fl::Op::str(power1->defuzzify()) << 
+     FL_LOG("Ambient.input = " << fl::Op::str(light) << " -> " <<
+            "Power.output = " << fl::Op::str(power->defuzzify()) <<
+                      " Timer: " << power->getTimer() <<
+            " Power1.output = " << fl::Op::str(power1->defuzzify()) <<
             " Timer: " << power1->getTimer());
  }
 #endif
- std::cout << engine->toString() << std::endl;
+ fl::fuzzylite::logger->debug() << engine->toString();
 
     Exporter* exporter;
     exporter = new JavaExporter;
-    std::cout << exporter->toString(engine) << std::endl;
+    fl::fuzzylite::logger->debug() << exporter->toString(engine);
 #if 0
     else if (to == "fld") exporter = new FldExporter(" ", 1024);
     else if (to == "fcl") exporter = new FclExporter;
