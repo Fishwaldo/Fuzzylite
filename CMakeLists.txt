@@ -77,7 +77,7 @@ if(NOT FL_BACKTRACE)
 endif()
 
 include_directories(.)
-include_directories ("${PROJECT_SOURCE_DIR}/LoggerCpp/include/")
+include_directories ("${PROJECT_SOURCE_DIR}/fl/")
 add_definitions (-std=c++0x)  # -std=c++11
 
 file(STRINGS FL_HEADERS fl-headers)
@@ -91,29 +91,29 @@ message("${exepath}")
 
 # add sources of the logger library as a "LoggerCpp" library
 add_library (LoggerCpp STATIC
- LoggerCpp/include/LoggerCpp/Channel.h
- LoggerCpp/include/LoggerCpp/Config.h
- LoggerCpp/include/LoggerCpp/DateTime.h
- LoggerCpp/include/LoggerCpp/Exception.h
- LoggerCpp/include/LoggerCpp/Formatter.h
- LoggerCpp/include/LoggerCpp/Log.h
- LoggerCpp/include/LoggerCpp/Logger.h
- LoggerCpp/include/LoggerCpp/LoggerCpp.h
- LoggerCpp/include/LoggerCpp/Manager.h
- LoggerCpp/include/LoggerCpp/Output.h
- LoggerCpp/include/LoggerCpp/OutputConsole.h
- LoggerCpp/include/LoggerCpp/OutputDebug.h
- LoggerCpp/include/LoggerCpp/OutputFile.h
- LoggerCpp/include/LoggerCpp/shared_ptr.hpp
- LoggerCpp/include/LoggerCpp/Utils.h
- LoggerCpp/src/Config.cpp
- LoggerCpp/src/DateTime.cpp
- LoggerCpp/src/Log.cpp
- LoggerCpp/src/Logger.cpp
- LoggerCpp/src/Manager.cpp
- LoggerCpp/src/OutputConsole.cpp
- LoggerCpp/src/OutputDebug.cpp
- LoggerCpp/src/OutputFile.cpp
+ fl/LoggerCpp/Channel.h
+ fl/LoggerCpp/Config.h
+ fl/LoggerCpp/DateTime.h
+ fl/LoggerCpp/Exception.h
+ fl/LoggerCpp/Formatter.h
+ fl/LoggerCpp/Log.h
+ fl/LoggerCpp/Logger.h
+ fl/LoggerCpp/LoggerCpp.h
+ fl/LoggerCpp/Manager.h
+ fl/LoggerCpp/Output.h
+ fl/LoggerCpp/OutputConsole.h
+ fl/LoggerCpp/OutputDebug.h
+ fl/LoggerCpp/OutputFile.h
+ fl/LoggerCpp/shared_ptr.hpp
+ fl/LoggerCpp/Utils.h
+ src/LoggerCpp/Config.cpp
+ src/LoggerCpp/DateTime.cpp
+ src/LoggerCpp/Log.cpp
+ src/LoggerCpp/Logger.cpp
+ src/LoggerCpp/Manager.cpp
+ src/LoggerCpp/OutputConsole.cpp
+ src/LoggerCpp/OutputDebug.cpp
+ src/LoggerCpp/OutputFile.cpp
 )
 #set_target_properties(LoggerCpp PROPERTIES COMPILE_FLAGS -fvisibility=hidden)
 
@@ -144,7 +144,7 @@ install(TARGETS fl-bin fl-shared
 		)
 
 install(DIRECTORY fl/ DESTINATION include/fl)
-install(DIRECTORY LoggerCpp/include/LoggerCpp DESTINATION include)
+#install(DIRECTORY  DESTINATION include)
 
 #if(WIN32)
 #	set(fl-suffix)
