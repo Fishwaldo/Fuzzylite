@@ -144,6 +144,7 @@ install(TARGETS fl-bin fl-shared
 		)
 
 install(DIRECTORY fl/ DESTINATION include/fl)
+install(DIRECTORY LoggerCpp/include/LoggerCpp DESTINATION include)
 
 #if(WIN32)
 #	set(fl-suffix)
