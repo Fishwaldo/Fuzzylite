@@ -10,8 +10,8 @@
  */
 #pragma once
 
-#include "LoggerCpp/Output.h"
-#include "LoggerCpp/Config.h"
+#include "fl/LoggerCpp/Output.h"
+#include "fl/LoggerCpp/Config.h"
 
 namespace fl {
 	namespace Log {

@@ -10,10 +10,10 @@
  */
 #pragma once
 
-#include "LoggerCpp/Log.h"
-#include "LoggerCpp/Channel.h"
-#include "LoggerCpp/Output.h"
-#include "LoggerCpp/Config.h"
+#include "fl/LoggerCpp/Log.h"
+#include "fl/LoggerCpp/Channel.h"
+#include "fl/LoggerCpp/Output.h"
+#include "fl/LoggerCpp/Config.h"
 
 namespace fl {
 

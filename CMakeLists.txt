@@ -77,7 +77,6 @@ if(NOT FL_BACKTRACE)
 endif()
 
 include_directories(.)
-include_directories ("${PROJECT_SOURCE_DIR}/fl/")
 add_definitions (-std=c++0x)  # -std=c++11
 
 file(STRINGS FL_HEADERS fl-headers)
